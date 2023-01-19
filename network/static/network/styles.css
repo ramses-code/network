@@ -1,0 +1,16 @@
+.register {
+    width: 75%;
+    margin-left: auto;
+}
+
+.a-username {
+    color: black;
+}
+.a-username:hover {
+    text-decoration: none;
+}
+
+.profile {
+    display: flex;
+    
+}

@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div id="container" class="container">
+        <h2 class="mt-2">All Post</h2>
+
+        {% for post in posts %}
+            <div class="card">
+
+                <div id="{{ post.id }}_editor" class="card-body d-none">
+                    <textarea id="{{ post.id }}_text" class="form-control w-50 d-inline" name="post" rows="4"></textarea>
+                    <button id="{{ post.id }}_edit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                </div>
+
+                <div id="{{ post.id }}" class="post card-body">
+                    <a class="a-username" href="{% url 'profile' username=post.poster %}"><h5 class="card-title d-inline">{{ post.poster }}</h5></a>
+                    {% if post.poster == request.user %}
+                        <button class="btn btn-primary btn-sm float-right">Edit</button>
+                    {% endif %}
+                    <p class="post card-text m-0">{{ post.post }}</p>
+                    <p class="timestamp card-text text-muted m-0">{{ post.timestamp }}</p>
+                    <span class="material-icons text-primary d-inline" type="button">thumb_up</span><p class="likes-count d-inline">{{ post.likes.count }}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <nav aria-label="Page navigation example" class="my-2 py-2">
+            <ul class="pagination float-right">
+                {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                {% if posts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+{% endblock %}
